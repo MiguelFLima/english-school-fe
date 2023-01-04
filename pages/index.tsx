@@ -3,18 +3,23 @@ import { useState } from 'react';
 import Header from '../src/components/Header';
 import Main from '../src/components/Main';
 import Sidebar from '../src/components/Sidebar';
-import { Student } from '../src/types/StudentType';
+import { Nivel } from '../src/types/NivelType';
+import { useQuery } from '@tanstack/react-query';
+import { getAllStudents } from '../src/database/fetchs';
 
 export default function Home() {
-  const [students, setStudents] = useState<Student[]>([]);
+  const [niveis, setNiveis] = useState<Nivel[]>([]);
 
-  const handleGetAllStudents = async () => {
-    const res = await fetch('http://localhost:3000/pessoas/todos');
-    let response = await res.json();
-    setStudents(response);
+  const { data: estudantes } = useQuery(['todasPessoas'], () =>
+    getAllStudents()
+  );
+  // console.log('data', estudantes);
+
+  const handleGetAllLevels = async () => {
+    const niveis = await fetch('http://localhost:3000/niveis');
+    const response = await niveis.json();
+    setNiveis(response);
   };
-
-  console.log(students);
 
   return (
     <>
@@ -31,8 +36,8 @@ export default function Home() {
       <main className="h-[100vh]">
         <Header />
         <div className="flex h-[100%] ">
-          <Sidebar handleGetAllStudents={handleGetAllStudents} />
-          <Main students={students} />
+          <Sidebar handleGetAllLevels={handleGetAllLevels} />
+          <Main estudantes={estudantes} niveis={niveis} />
         </div>
       </main>
     </>

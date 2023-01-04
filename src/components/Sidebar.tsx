@@ -1,21 +1,25 @@
 import React from 'react';
 
 interface SidebarProps {
-  handleGetAllStudents: () => void;
+  handleGetAllLevels: () => void;
 }
 
-function Sidebar({ handleGetAllStudents }: SidebarProps) {
+function Sidebar({ handleGetAllLevels }: SidebarProps) {
   return (
     <aside className="bg-blue-100 w-[20%] h-[100%]">
       <h1 className="text-3xl text-center pt-5 font-bold">
-        Administrator Interface
+        Administrator <br />
+        Menu
       </h1>
-      <ul>
+      <ul className="my-12 text-center">
+        <li className=" font-semibold text-xl cursor-pointer border hover:border-b-black">
+          Estudantes
+        </li>
         <li
-          onClick={handleGetAllStudents}
-          className="mx-4 my-12 font-semibold text-xl underline cursor-pointer "
+          onClick={handleGetAllLevels}
+          className=" font-semibold text-xl cursor-pointer border hover:border-b-black"
         >
-          ={'>'} List all students
+          Níveis
         </li>
       </ul>
     </aside>
