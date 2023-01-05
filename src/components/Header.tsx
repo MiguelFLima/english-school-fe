@@ -3,7 +3,7 @@ import React from 'react';
 
 function Header() {
   return (
-    <header className="w-[100%] h-[110px] bg-red-400">
+    <header className="w-[100%] h-[110px] bg-gray-800">
       <Image
         className=""
         src={'/logo-branco-pequeno.png'}

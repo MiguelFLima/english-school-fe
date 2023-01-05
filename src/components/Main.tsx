@@ -1,34 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Class } from '../types/Class';
+import { Matricula } from '../types/Matricula';
 import { Nivel } from '../types/NivelType';
 import { Student } from '../types/StudentType';
+import Classes from './Maps Main/Classes';
+import Matriculas from './Maps Main/Matriculas';
+import Niveis from './Maps Main/Niveis';
+import Students from './Maps Main/Students';
 
 interface MainProps {
   estudantes: Student[] | undefined;
-  niveis: Nivel[];
+  niveis: Nivel[] | undefined;
+  classes: Class[];
+  matriculas: Matricula[];
+  escolha: string;
 }
 
-function Main({ estudantes, niveis }: MainProps) {
+function Main({ estudantes, niveis, matriculas, classes, escolha }: MainProps) {
   return (
-    <main className="bg-green-500 w-[100%] h-[100%]">
-      <h1>oi</h1>
-      <ul>
-        {estudantes
-          ? estudantes.map((student) => (
-              <li className="text-2xl text-blue-500" key={student.id}>
-                {student.nome}
-              </li>
-            ))
-          : ''}
-      </ul>
-      <ul>
-        {niveis
-          ? niveis.map((nivel) => (
-              <li className="text-2xl text-blue-500" key={nivel.id}>
-                {nivel.descr_nivel}
-              </li>
-            ))
-          : ''}
-      </ul>
+    <main className=" w-[100%] h-[100%] p-10">
+      {escolha === 'estudantes' ? <Students estudantes={estudantes} /> : ''}
+      {escolha === 'niveis' ? <Niveis niveis={niveis} /> : ''}
+      {escolha === 'classes' ? <Classes classes={classes} /> : ''}
+      {escolha === 'matriculas' ? <Matriculas matriculas={matriculas} /> : ''}
     </main>
   );
 }
