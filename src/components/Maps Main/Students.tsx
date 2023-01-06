@@ -5,10 +5,10 @@ import TituloMain from '../TituloMain';
 
 interface StudentProps {
   estudantes: Student[] | undefined;
+  handleOpenModal: () => void;
 }
 
-const StudentMap = ({ estudantes }: StudentProps) => {
-  const handleAddPeople = () => {};
+const StudentMap = ({ estudantes, handleOpenModal }: StudentProps) => {
   return (
     <>
       <TituloMain text="Tabela Pessoas" />
@@ -18,7 +18,7 @@ const StudentMap = ({ estudantes }: StudentProps) => {
         </button>
         <AiFillPlusCircle
           className="cursor-pointer"
-          onClick={() => handleAddPeople()}
+          onClick={handleOpenModal}
           size={'30px'}
         />
       </div>

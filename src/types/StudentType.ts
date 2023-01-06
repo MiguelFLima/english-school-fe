@@ -8,3 +8,10 @@ export interface Student {
   updatedAt: string;
   deletedAt: string | null;
 }
+
+export interface NewStudentInfo {
+  nome: string;
+  ativo: number;
+  email: string;
+  role: string;
+}

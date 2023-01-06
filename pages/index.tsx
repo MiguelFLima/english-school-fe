@@ -10,11 +10,12 @@ import {
   getAllMatriculas,
 } from '../src/database/fetchs';
 import { useState } from 'react';
+import NewStudentModal from '../src/components/Modal';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
 
-  // ======== Fetchs =========
+  // ======== FETCHS =========
 
   const { data: estudantes } = useQuery(['todasPessoas'], () =>
     getAllStudents()
@@ -28,6 +29,17 @@ export default function Home() {
   const { data: matriculas } = useQuery(['matriculas'], () => {
     return getAllMatriculas();
   });
+
+  // ====== MODAL =======
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -46,6 +58,7 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            handleOpenModal={handleOpenModal}
             escolha={escolha}
             estudantes={estudantes}
             niveis={niveis}
@@ -53,6 +66,11 @@ export default function Home() {
             matriculas={matriculas}
           />
         </div>
+        <NewStudentModal
+          handleOpenModal={handleOpenModal}
+          modalIsOpen={modalIsOpen}
+          handleCloseModal={handleCloseModal}
+        />
       </main>
     </>
   );

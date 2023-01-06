@@ -14,12 +14,24 @@ interface MainProps {
   classes: Class[];
   matriculas: Matricula[];
   escolha: string;
+  handleOpenModal: () => void;
 }
 
-function Main({ estudantes, niveis, matriculas, classes, escolha }: MainProps) {
+function Main({
+  estudantes,
+  niveis,
+  matriculas,
+  classes,
+  escolha,
+  handleOpenModal,
+}: MainProps) {
   return (
     <main className=" w-[100%] h-[100%] p-10">
-      {escolha === 'estudantes' ? <Students estudantes={estudantes} /> : ''}
+      {escolha === 'estudantes' ? (
+        <Students handleOpenModal={handleOpenModal} estudantes={estudantes} />
+      ) : (
+        ''
+      )}
       {escolha === 'niveis' ? <Niveis niveis={niveis} /> : ''}
       {escolha === 'classes' ? <Classes classes={classes} /> : ''}
       {escolha === 'matriculas' ? <Matriculas matriculas={matriculas} /> : ''}
