@@ -41,7 +41,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="h-[100vh]">
+      <main className="h-[calc(100vh-110px)]">
         <Header />
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />

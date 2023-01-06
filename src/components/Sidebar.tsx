@@ -10,19 +10,17 @@ interface SidebarProps {
 
 function Sidebar({ setEscolha }: SidebarProps) {
   return (
-    <aside className="bg-gray-100 w-[20%] h-[100%]">
+    <aside className="bg-gray-100 w-[20%] h-[100%] ">
       <h1 className="text-3xl text-center pt-5 font-bold">
         Administrator <br />
         Menu
       </h1>
-      <h2 className="text-center mt-16 pb-2 text-xl font-semibold border-b border-b-black">
-        Visualizar dados
-      </h2>
-      <ul className="my-6 text-left ">
+      <div className="mt-6 border-b-2 border-b-black"></div>
+      <ul className="my-6 text-left flex flex-col gap-y-1">
         <div className="sidebarDiv">
           <BsFillPeopleFill size="24px" />
           <li onClick={() => setEscolha('estudantes')} className="sidebarItem">
-            Estudantes
+            Colaboradores
           </li>
         </div>
 

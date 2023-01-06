@@ -12,7 +12,7 @@ const StudentMap = ({ estudantes }: StudentProps) => {
   return (
     <>
       <TituloMain text="Tabela Pessoas" />
-      <div className="w-[100%] mb-10 gap-2 flex items-center justify-end">
+      <div className="w-[100%] mb-7 gap-2 flex items-center justify-end">
         <button className="  font-medium text-lg">
           Adicionar um colaborador
         </button>
