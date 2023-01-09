@@ -1,5 +1,6 @@
 import React from 'react';
 import { Nivel } from '../../types/NivelType';
+import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
 
 interface NiveisProps {
@@ -18,7 +19,8 @@ const Niveis = ({ niveis }: NiveisProps) => {
             <th>Nome</th>
             <th>Criado em</th>
             <th>Atualizado em</th>
-            <th>Deletado em</th>
+            <th>Editar</th>
+            <th>Deletar</th>
           </tr>
         </thead>
         <tbody>
@@ -30,9 +32,8 @@ const Niveis = ({ niveis }: NiveisProps) => {
                 >
                   <td>{nivel.id}</td>
                   <td>{nivel.descr_nivel}</td>
-                  <td>{nivel.createdAt}</td>
-                  <td>{nivel.updatedAt}</td>
-                  <td>{nivel.deletedAt}</td>
+                  <td>{getBeutyDate(nivel.createdAt)}</td>
+                  <td>{getBeutyDate(nivel.updatedAt)}</td>
                 </tr>
               ))
             : ''}

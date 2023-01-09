@@ -1,5 +1,6 @@
 import React from 'react';
 import { Class } from '../../types/Class';
+import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
 
 interface ClassesProps {
@@ -20,7 +21,8 @@ const Classes = ({ classes }: ClassesProps) => {
             <th>Início</th>
             <th>Criado em</th>
             <th>Atualizado em</th>
-            <th>Deletado em</th>
+            <th>Editar</th>
+            <th>Deletar</th>
           </tr>
         </thead>
         <tbody>
@@ -34,8 +36,8 @@ const Classes = ({ classes }: ClassesProps) => {
                   <td>{turma.docente_id}</td>
                   <td>{turma.nivel_id}</td>
                   <td>{turma.data_inicio}</td>
-                  <td>{turma.createdAt}</td>
-                  <td>{turma.updatedAt}</td>
+                  <td>{getBeutyDate(turma.createdAt)}</td>
+                  <td>{getBeutyDate(turma.updatedAt)}</td>
                   <td>{turma.deletedAt}</td>
                 </tr>
               ))

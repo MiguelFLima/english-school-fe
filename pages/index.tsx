@@ -11,9 +11,22 @@ import {
 } from '../src/database/fetchs';
 import { useState } from 'react';
 import NewStudentModal from '../src/components/Modal';
+import EditStudentModal from '../src/components/ModalEditar';
+import { Student } from '../src/types/StudentType';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
+  const [studentToEdit, setStudentToEdit] = useState({
+    id: 0,
+    nome: '',
+    ativo: false,
+    email: '',
+    role: '',
+    createdAt: '',
+    updatedAt: '',
+    deletedAt: '',
+  });
+  console.log('studentToEdit', studentToEdit);
 
   // ======== FETCHS =========
 
@@ -41,6 +54,26 @@ export default function Home() {
     setIsOpen(false);
   };
 
+  // ====== EDIÇÃO MODAL =====
+
+  const [editModal, setEditModal] = useState(false);
+  const handleOpenEditModal = (student: Student) => {
+    setEditModal(true);
+    setStudentToEdit({
+      id: student.id,
+      nome: student.nome,
+      ativo: student.ativo,
+      email: student.email,
+      role: student.role,
+      createdAt: '',
+      updatedAt: '',
+      deletedAt: '',
+    });
+  };
+  const handleCloseEditModal = () => {
+    setEditModal(false);
+  };
+
   return (
     <>
       <Head>
@@ -58,6 +91,8 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            handleOpenEditModal={handleOpenEditModal}
+            handleCloseEditModal={handleCloseEditModal}
             handleOpenModal={handleOpenModal}
             escolha={escolha}
             estudantes={estudantes}
@@ -66,12 +101,26 @@ export default function Home() {
             matriculas={matriculas}
           />
         </div>
+      </main>
+      {modalIsOpen ? (
         <NewStudentModal
           handleOpenModal={handleOpenModal}
           modalIsOpen={modalIsOpen}
           handleCloseModal={handleCloseModal}
         />
-      </main>
+      ) : (
+        ''
+      )}
+      {editModal ? (
+        <EditStudentModal
+          studentToEdit={studentToEdit}
+          handleOpenEditModal={handleOpenEditModal}
+          editModal={editModal}
+          handleCloseEditModal={handleCloseEditModal}
+        />
+      ) : (
+        ''
+      )}
     </>
   );
 }

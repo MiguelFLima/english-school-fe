@@ -1,14 +1,22 @@
 import React from 'react';
-import { Student } from '../../types/StudentType';
+import { NewStudentInfo, Student } from '../../types/StudentType';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import TituloMain from '../TituloMain';
+import { MdDeleteForever } from 'react-icons/md';
+import { deleteAColaborator } from '../../database/fetchs';
+import { getBeutyDate } from '../../utils/functions';
 
 interface StudentProps {
   estudantes: Student[] | undefined;
   handleOpenModal: () => void;
+  handleOpenEditModal: (student: Student) => void;
 }
 
-const StudentMap = ({ estudantes, handleOpenModal }: StudentProps) => {
+const StudentMap = ({
+  estudantes,
+  handleOpenModal,
+  handleOpenEditModal,
+}: StudentProps) => {
   return (
     <>
       <TituloMain text="Tabela Pessoas" />
@@ -32,7 +40,8 @@ const StudentMap = ({ estudantes, handleOpenModal }: StudentProps) => {
             <th>Role</th>
             <th>Criado em</th>
             <th>Atualizado em</th>
-            <th>Deletado em</th>
+            <th>Editar</th>
+            <th>Deletar</th>
           </tr>
         </thead>
         <tbody>
@@ -47,9 +56,24 @@ const StudentMap = ({ estudantes, handleOpenModal }: StudentProps) => {
                   <td>{student.ativo === true ? 'Sim' : 'Não'}</td>
                   <td>{student.email}</td>
                   <td>{student.role}</td>
-                  <td>{student.createdAt}</td>
-                  <td>{student.updatedAt}</td>
-                  <td>{student.deletedAt}</td>
+                  <td>{getBeutyDate(student.createdAt)}</td>
+                  <td>{getBeutyDate(student.updatedAt)}</td>
+                  <td>
+                    <button
+                      onClick={() => handleOpenEditModal(student)}
+                      className="px-2  bg-yellow-400 rounded-md transition duration-200 hover:bg-yellow-600"
+                    >
+                      Editar
+                    </button>
+                  </td>
+                  <td className="flex justify-center items-center h-full">
+                    <MdDeleteForever
+                      className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
+                      onClick={() => deleteAColaborator(student.id)}
+                      size="32px"
+                      color="red"
+                    />
+                  </td>
                 </tr>
               ))
             : ''}

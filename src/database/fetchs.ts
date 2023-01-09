@@ -3,7 +3,7 @@ import { Nivel } from '../types/NivelType';
 import { NewStudentInfo, Student } from '../types/StudentType';
 
 export const getAllStudents = async () => {
-  const students = await http<Student[]>('pessoas/todos');
+  const students = await http<Student[]>('pessoas');
   return students.data;
 };
 
@@ -31,6 +31,29 @@ export const PostAColaborator = async (student: NewStudentInfo) => {
       role: String(student.role),
     });
     return newPersonAdded;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addEditColaborator = async (student: Student) => {
+  try {
+    await http.put(`pessoas/${student.id}`, {
+      nome: student.nome,
+      ativo: Boolean(student.ativo === true ? 1 : 0),
+      email: String(student.email),
+      role: String(student.role),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteAColaborator = async (id: Number) => {
+  try {
+    const result = await http.delete(`pessoas/${id}`);
+    console.log(result);
+    return result;
   } catch (error) {
     console.log(error);
   }

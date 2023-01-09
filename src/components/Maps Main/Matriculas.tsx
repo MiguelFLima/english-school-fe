@@ -1,5 +1,6 @@
 import React from 'react';
 import { Matricula } from '../../types/Matricula';
+import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
 
 interface MatriculaProps {
@@ -20,7 +21,8 @@ const Matriculas = ({ matriculas }: MatriculaProps) => {
             <th>Status</th>
             <th>Criado em</th>
             <th>Atualizado em</th>
-            <th>Deletado em</th>
+            <th>Editar</th>
+            <th>Deletar</th>
           </tr>
         </thead>
         <tbody>
@@ -34,8 +36,8 @@ const Matriculas = ({ matriculas }: MatriculaProps) => {
                   <td>{matricula.estudante_id}</td>
                   <td>{matricula.turma_id}</td>
                   <td>{matricula.status}</td>
-                  <td>{matricula.createdAt}</td>
-                  <td>{matricula.updatedAt}</td>
+                  <td>{getBeutyDate(matricula.createdAt)}</td>
+                  <td>{getBeutyDate(matricula.updatedAt)}</td>
                   <td>{matricula.deletedAt}</td>
                 </tr>
               ))

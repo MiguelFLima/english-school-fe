@@ -4,14 +4,14 @@ export interface Student {
   ativo: boolean;
   email: string;
   role: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
 }
 
 export interface NewStudentInfo {
   nome: string;
-  ativo: number;
+  ativo: number | string;
   email: string;
   role: string;
 }
