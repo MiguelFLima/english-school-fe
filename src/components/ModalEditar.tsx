@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { useState } from 'react';
 import { NewStudentInfo, Student } from '../types/StudentType';
 import { addEditColaborator } from '../database/fetchs';
+import { toast } from 'react-toastify';
 
 interface EditStudentModalProps {
   editModal: boolean;
@@ -47,9 +48,21 @@ const EditStudentModal = ({
     setStudentInfo({ ...studentInfo, [name]: value });
   };
 
+  const notify = () =>
+    toast('Atualizado ✅!', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: 'light',
+    });
+
   const handleEditColaborator = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await addEditColaborator(studentInfo);
+    notify();
     handleCloseEditModal();
   };
 

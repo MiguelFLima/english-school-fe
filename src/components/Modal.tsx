@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { NewStudentInfo } from '../types/StudentType';
 import { PostAColaborator } from '../database/fetchs';
 import Loading from './Loading';
+import { toast } from 'react-toastify';
 
 interface NewStudentModalProps {
   modalIsOpen: boolean;
@@ -48,12 +49,21 @@ const NewStudentModal = ({
     setStudentInfo({ ...studentInfo, [name]: value });
   };
 
+  const notify = () =>
+    toast('Adicionado ✅!', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: 'light',
+    });
+
   const handleAddColaborator = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsLoading(true);
-    const newPerson = await PostAColaborator(studentInfo);
-    setIsLoading(false);
+    await PostAColaborator(studentInfo);
     setStudentInfo({
       nome: '',
       ativo: '',
@@ -61,7 +71,7 @@ const NewStudentModal = ({
       role: '',
     });
     handleCloseModal();
-    console.log(newPerson);
+    notify(); // NAO ESTA FUNCIONANDO
   };
 
   return (

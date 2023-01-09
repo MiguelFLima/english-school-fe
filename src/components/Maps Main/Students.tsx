@@ -1,5 +1,5 @@
 import React from 'react';
-import { NewStudentInfo, Student } from '../../types/StudentType';
+import { Student } from '../../types/StudentType';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import TituloMain from '../TituloMain';
 import { MdDeleteForever } from 'react-icons/md';
@@ -56,8 +56,12 @@ const StudentMap = ({
                   <td>{student.ativo === true ? 'Sim' : 'Não'}</td>
                   <td>{student.email}</td>
                   <td>{student.role}</td>
-                  <td>{getBeutyDate(student.createdAt)}</td>
-                  <td>{getBeutyDate(student.updatedAt)}</td>
+                  <td>
+                    {student.createdAt && getBeutyDate(student.createdAt)}
+                  </td>
+                  <td>
+                    {student.updatedAt && getBeutyDate(student.updatedAt)}
+                  </td>
                   <td>
                     <button
                       onClick={() => handleOpenEditModal(student)}
