@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AiFillPlusCircle } from 'react-icons/ai';
+import { MdDeleteForever } from 'react-icons/md';
 import { Nivel } from '../../types/NivelType';
 import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
 
 interface NiveisProps {
   niveis: Nivel[] | undefined;
+  handleOpenNewNivelModal: () => void;
 }
 
-const Niveis = ({ niveis }: NiveisProps) => {
+const Niveis = ({ niveis, handleOpenNewNivelModal }: NiveisProps) => {
   return (
     <>
       <TituloMain text="Tabela Níveis" />
+      <div className="w-[100%] mb-7 gap-2 flex items-center justify-end">
+        <button className="  font-medium text-lg">Adicionar um Nível</button>
+        <AiFillPlusCircle
+          className="cursor-pointer"
+          onClick={handleOpenNewNivelModal}
+          size={'30px'}
+        />
+      </div>
 
       <table className="w-full mx-auto text-center shadow-xl">
         <thead>
@@ -32,8 +43,20 @@ const Niveis = ({ niveis }: NiveisProps) => {
                 >
                   <td>{nivel.id}</td>
                   <td>{nivel.descr_nivel}</td>
-                  <td>{getBeutyDate(nivel.createdAt)}</td>
-                  <td>{getBeutyDate(nivel.updatedAt)}</td>
+                  <td>{nivel.createdAt && getBeutyDate(nivel.createdAt)}</td>
+                  <td>{nivel.updatedAt && getBeutyDate(nivel.updatedAt)}</td>
+                  <td>
+                    <button className="px-2  bg-yellow-400 rounded-md transition duration-200 hover:bg-yellow-600">
+                      Editar
+                    </button>
+                  </td>
+                  <td className="flex justify-center items-center h-full">
+                    <MdDeleteForever
+                      className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
+                      size="32px"
+                      color="red"
+                    />
+                  </td>
                 </tr>
               ))
             : ''}

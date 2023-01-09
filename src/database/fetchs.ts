@@ -70,3 +70,11 @@ export const deleteAColaborator = async (id: Number) => {
     console.log(error);
   }
 };
+
+// ======= NIVEIS =======
+
+export const addToNiveis = async (nivel: Nivel) => {
+  await http.post('niveis', {
+    descr_nivel: nivel.descr_nivel,
+  });
+};

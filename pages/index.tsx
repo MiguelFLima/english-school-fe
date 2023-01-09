@@ -10,9 +10,10 @@ import {
   getAllMatriculas,
 } from '../src/database/fetchs';
 import { useState } from 'react';
-import NewStudentModal from '../src/components/Modal';
-import EditStudentModal from '../src/components/ModalEditar';
+import NewStudentModal from '../src/components/Modais/ModalAdicionarColaborador';
+import EditStudentModal from '../src/components/Modais/ModalEditarColaborador';
 import { Student } from '../src/types/StudentType';
+import AddNivelModal from '../src/components/Modais/ModalAdicionarNivel';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -74,6 +75,16 @@ export default function Home() {
     setEditModal(false);
   };
 
+  // ======== ADD NIVEL MODAL ========
+  const [addNivelModal, setAddNivelModal] = useState(false);
+
+  const handleOpenNewNivelModal = () => {
+    setAddNivelModal(true);
+  };
+  const handleCloseNewNivelModal = () => {
+    setAddNivelModal(false);
+  };
+
   return (
     <>
       <Head>
@@ -91,6 +102,7 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            handleOpenNewNivelModal={handleOpenNewNivelModal}
             handleOpenEditModal={handleOpenEditModal}
             handleCloseEditModal={handleCloseEditModal}
             handleOpenModal={handleOpenModal}
@@ -121,6 +133,10 @@ export default function Home() {
       ) : (
         ''
       )}
+      <AddNivelModal
+        handleCloseNewNivelModal={handleCloseNewNivelModal}
+        addNivelModal={addNivelModal}
+      />
     </>
   );
 }

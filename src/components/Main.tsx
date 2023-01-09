@@ -14,6 +14,7 @@ interface MainProps {
   classes: Class[];
   matriculas: Matricula[];
   escolha: string;
+  handleOpenNewNivelModal: () => void;
   handleOpenModal: () => void;
   handleOpenEditModal: (student: Student) => void;
   handleCloseEditModal: () => void;
@@ -24,6 +25,7 @@ function Main({
   niveis,
   matriculas,
   classes,
+  handleOpenNewNivelModal,
   escolha,
   handleOpenModal,
   handleOpenEditModal,
@@ -40,7 +42,14 @@ function Main({
       ) : (
         ''
       )}
-      {escolha === 'niveis' ? <Niveis niveis={niveis} /> : ''}
+      {escolha === 'niveis' ? (
+        <Niveis
+          handleOpenNewNivelModal={handleOpenNewNivelModal}
+          niveis={niveis}
+        />
+      ) : (
+        ''
+      )}
       {escolha === 'classes' ? <Classes classes={classes} /> : ''}
       {escolha === 'matriculas' ? <Matriculas matriculas={matriculas} /> : ''}
     </main>

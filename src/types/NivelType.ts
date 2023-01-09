@@ -1,7 +1,7 @@
 export interface Nivel {
-  id: number;
+  id?: number;
   descr_nivel: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
 }

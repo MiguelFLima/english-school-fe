@@ -1,22 +1,24 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useState } from 'react';
-import { NewStudentInfo, Student } from '../types/StudentType';
-import { addEditColaborator } from '../database/fetchs';
+import { NewStudentInfo } from '../../types/StudentType';
+import { PostAColaborator } from '../../database/fetchs';
+import Loading from '../Loading';
 import { toast } from 'react-toastify';
 
-interface EditStudentModalProps {
-  editModal: boolean;
-  handleCloseEditModal: () => void;
-  handleOpenEditModal: (student: Student) => void;
-  studentToEdit: Student;
+interface NewStudentModalProps {
+  modalIsOpen: boolean;
+  handleCloseModal: () => void;
+  handleOpenModal: () => void;
 }
 
-const EditStudentModal = ({
-  editModal,
-  studentToEdit,
-  handleCloseEditModal,
-}: EditStudentModalProps) => {
+const NewStudentModal = ({
+  modalIsOpen,
+  handleCloseModal,
+  handleOpenModal,
+}: NewStudentModalProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const customStyles = {
     content: {
       top: '50%',
@@ -29,12 +31,11 @@ const EditStudentModal = ({
     },
   };
 
-  const [studentInfo, setStudentInfo] = useState<Student>({
-    id: studentToEdit.id,
-    nome: studentToEdit.nome,
-    ativo: studentToEdit.ativo,
-    email: studentToEdit.email,
-    role: studentToEdit.role,
+  const [studentInfo, setStudentInfo] = useState<NewStudentInfo>({
+    nome: '',
+    ativo: '',
+    email: '',
+    role: '',
   });
 
   const handleChangeStudent = (
@@ -49,7 +50,7 @@ const EditStudentModal = ({
   };
 
   const notify = () =>
-    toast('Atualizado ✅!', {
+    toast('Adicionado ✅!', {
       position: 'top-right',
       autoClose: 2000,
       hideProgressBar: true,
@@ -59,23 +60,30 @@ const EditStudentModal = ({
       theme: 'light',
     });
 
-  const handleEditColaborator = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddColaborator = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await addEditColaborator(studentInfo);
-    notify();
-    handleCloseEditModal();
+
+    await PostAColaborator(studentInfo);
+    setStudentInfo({
+      nome: '',
+      ativo: '',
+      email: '',
+      role: '',
+    });
+    handleCloseModal();
+    notify(); // NAO ESTA FUNCIONANDO
   };
 
   return (
     <div>
       <Modal
-        isOpen={editModal}
-        onRequestClose={handleCloseEditModal}
+        isOpen={modalIsOpen}
+        onRequestClose={handleCloseModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
         <form
-          onSubmit={handleEditColaborator}
+          onSubmit={handleAddColaborator}
           className="flex flex-col p-6 text-left"
         >
           <h1 className="font-bold text-3xl p-4 mb-4">
@@ -90,7 +98,7 @@ const EditStudentModal = ({
             type="text"
           />
           <select
-            value={studentInfo.ativo === true ? 1 : 0}
+            value={studentInfo.ativo || ''}
             onChange={handleChangeStudent}
             name="ativo"
             className="outline-none p-2 pl-[5px] mb-1 text-gray-600 border-b border-gray-400 rounded-md"
@@ -122,11 +130,11 @@ const EditStudentModal = ({
             <option value="docente">Professor</option>
           </select>
           <button className="py-2 px-4 mt-10 bg-blue-500 rounded-2xl w-[50%] mx-auto font-bold text-xl tracking-wider hover:bg-blue-700 active:scale-95 transition duration-100 ">
-            Salvar
+            {isLoading ? <Loading /> : 'Cadastrar'}
           </button>
         </form>
       </Modal>
     </div>
   );
 };
-export default EditStudentModal;
+export default NewStudentModal;
