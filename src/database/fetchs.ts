@@ -50,7 +50,7 @@ export const addEditColaborator = async (student: Student) => {
   }
 };
 
-const notify = () =>
+const notifyDeleted = () =>
   toast('Deletado ✅!', {
     position: 'top-right',
     autoClose: 2000,
@@ -64,7 +64,7 @@ const notify = () =>
 export const deleteAColaborator = async (id: Number) => {
   try {
     const result = await http.delete(`pessoas/${id}`);
-    notify();
+    notifyDeleted();
     return result;
   } catch (error) {
     console.log(error);
@@ -77,4 +77,38 @@ export const addToNiveis = async (nivel: Nivel) => {
   await http.post('niveis', {
     descr_nivel: nivel.descr_nivel,
   });
+};
+
+export const deleteALevel = async (id: Number) => {
+  try {
+    await http.delete(`niveis/${id}`);
+    notifyDeleted();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ===== CLASSES ========
+
+export const deleteAClass = async (id: Number) => {
+  try {
+    await http.delete(`turmas/${id}`);
+    notifyDeleted();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ====== MATRICULA =======
+
+export const deleteAMatricula = async (
+  matricula_id: Number,
+  estudante_id: Number
+) => {
+  try {
+    await http.delete(`pessoas/${estudante_id}/matriculas/${matricula_id}`);
+    notifyDeleted();
+  } catch (error) {
+    console.log(error);
+  }
 };

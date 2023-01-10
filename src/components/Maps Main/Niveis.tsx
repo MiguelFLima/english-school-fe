@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdDeleteForever } from 'react-icons/md';
+import { deleteALevel } from '../../database/fetchs';
 import { Nivel } from '../../types/NivelType';
 import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
@@ -52,6 +53,7 @@ const Niveis = ({ niveis, handleOpenNewNivelModal }: NiveisProps) => {
                   </td>
                   <td className="flex justify-center items-center h-full">
                     <MdDeleteForever
+                      onClick={() => deleteALevel(nivel.id!)}
                       className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
                       size="32px"
                       color="red"

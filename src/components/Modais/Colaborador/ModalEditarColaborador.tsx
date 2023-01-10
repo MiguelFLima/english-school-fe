@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useState } from 'react';
-import { Student } from '../../types/StudentType';
-import { addEditColaborator } from '../../database/fetchs';
+import { Student } from '../../../types/StudentType';
+import { addEditColaborator } from '../../../database/fetchs';
 import { toast } from 'react-toastify';
 
 interface EditStudentModalProps {

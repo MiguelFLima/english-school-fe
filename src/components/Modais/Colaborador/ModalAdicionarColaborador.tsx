@@ -1,9 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useState } from 'react';
-import { NewStudentInfo } from '../../types/StudentType';
-import { PostAColaborator } from '../../database/fetchs';
-import Loading from '../Loading';
+import { NewStudentInfo } from '../../../types/StudentType';
+import { PostAColaborator } from '../../../database/fetchs';
+import Loading from '../../Loading';
 import { toast } from 'react-toastify';
 
 interface NewStudentModalProps {

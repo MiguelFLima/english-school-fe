@@ -1,4 +1,6 @@
 import React from 'react';
+import { MdDeleteForever } from 'react-icons/md';
+import { deleteAClass } from '../../database/fetchs';
 import { Class } from '../../types/Class';
 import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
@@ -39,6 +41,14 @@ const Classes = ({ classes }: ClassesProps) => {
                   <td>{getBeutyDate(turma.createdAt)}</td>
                   <td>{getBeutyDate(turma.updatedAt)}</td>
                   <td>{turma.deletedAt}</td>
+                  <td className="flex justify-center items-center h-full">
+                    <MdDeleteForever
+                      className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
+                      onClick={() => deleteAClass(turma.id)}
+                      size="32px"
+                      color="red"
+                    />
+                  </td>
                 </tr>
               ))
             : ''}

@@ -1,4 +1,6 @@
 import React from 'react';
+import { MdDeleteForever } from 'react-icons/md';
+import { deleteAMatricula } from '../../database/fetchs';
 import { Matricula } from '../../types/Matricula';
 import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
@@ -38,7 +40,24 @@ const Matriculas = ({ matriculas }: MatriculaProps) => {
                   <td>{matricula.status}</td>
                   <td>{getBeutyDate(matricula.createdAt)}</td>
                   <td>{getBeutyDate(matricula.updatedAt)}</td>
-                  <td>{matricula.deletedAt}</td>
+                  <td>
+                    <button
+                      // onClick={() => handleOpenEditModal(student)}
+                      className="px-2  bg-yellow-400 rounded-md transition duration-200 hover:bg-yellow-600"
+                    >
+                      Editar
+                    </button>
+                  </td>
+                  <td className="flex justify-center items-center h-full">
+                    <MdDeleteForever
+                      className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
+                      onClick={() =>
+                        deleteAMatricula(matricula.id, matricula.estudante_id)
+                      }
+                      size="32px"
+                      color="red"
+                    />
+                  </td>
                 </tr>
               ))
             : ''}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
-import { addToNiveis } from '../../database/fetchs';
+import { addToNiveis } from '../../../database/fetchs';
 
 interface AddNivelModalProps {
   addNivelModal: boolean;

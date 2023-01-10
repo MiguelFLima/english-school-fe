@@ -10,10 +10,10 @@ import {
   getAllMatriculas,
 } from '../src/database/fetchs';
 import { useState } from 'react';
-import NewStudentModal from '../src/components/Modais/ModalAdicionarColaborador';
-import EditStudentModal from '../src/components/Modais/ModalEditarColaborador';
+import NewStudentModal from '../src/components/Modais/Colaborador/ModalAdicionarColaborador';
+import EditStudentModal from '../src/components/Modais/Colaborador/ModalEditarColaborador';
 import { Student } from '../src/types/StudentType';
-import AddNivelModal from '../src/components/Modais/ModalAdicionarNivel';
+import AddNivelModal from '../src/components/Modais/Nivel/ModalAdicionarNivel';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
