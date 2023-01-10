@@ -1,18 +1,39 @@
 import React from 'react';
+import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdDeleteForever } from 'react-icons/md';
 import { deleteAMatricula } from '../../database/fetchs';
+import { Class } from '../../types/Class';
 import { Matricula } from '../../types/Matricula';
+import { Student } from '../../types/StudentType';
 import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
 
 interface MatriculaProps {
   matriculas: Matricula[];
+  handleAddMatriculaModal: () => void;
 }
 
-const Matriculas = ({ matriculas }: MatriculaProps) => {
+const Matriculas = ({
+  matriculas,
+  handleAddMatriculaModal,
+}: MatriculaProps) => {
   return (
     <>
-      <TituloMain text="Tabela Matrículas" />
+      <TituloMain text="Tabela de Matrículas" />
+      <div className="w-[100%] mb-7 gap-2 flex items-center justify-end">
+        <button
+          onClick={handleAddMatriculaModal}
+          className="  font-medium text-lg"
+        >
+          Criar uma matrícula
+        </button>
+        <AiFillPlusCircle
+          onClick={handleAddMatriculaModal}
+          className="cursor-pointer"
+          // onClick={handleOpenModal}
+          size={'30px'}
+        />
+      </div>
 
       <table className="w-full mx-auto text-center shadow-xl">
         <thead>
@@ -38,8 +59,8 @@ const Matriculas = ({ matriculas }: MatriculaProps) => {
                   <td>{matricula.estudante_id}</td>
                   <td>{matricula.turma_id}</td>
                   <td>{matricula.status}</td>
-                  <td>{getBeutyDate(matricula.createdAt)}</td>
-                  <td>{getBeutyDate(matricula.updatedAt)}</td>
+                  <td>{getBeutyDate(matricula.createdAt!)}</td>
+                  <td>{getBeutyDate(matricula.updatedAt!)}</td>
                   <td>
                     <button
                       // onClick={() => handleOpenEditModal(student)}
@@ -52,7 +73,7 @@ const Matriculas = ({ matriculas }: MatriculaProps) => {
                     <MdDeleteForever
                       className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
                       onClick={() =>
-                        deleteAMatricula(matricula.id, matricula.estudante_id)
+                        deleteAMatricula(matricula.id!, matricula.estudante_id)
                       }
                       size="32px"
                       color="red"

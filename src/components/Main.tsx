@@ -18,6 +18,7 @@ interface MainProps {
   handleOpenModal: () => void;
   handleOpenEditModal: (student: Student) => void;
   handleCloseEditModal: () => void;
+  handleAddMatriculaModal: () => void;
 }
 
 function Main({
@@ -30,6 +31,7 @@ function Main({
   handleOpenModal,
   handleOpenEditModal,
   handleCloseEditModal,
+  handleAddMatriculaModal,
 }: MainProps) {
   return (
     <main className=" w-[100%] h-[100%] p-10">
@@ -51,7 +53,14 @@ function Main({
         ''
       )}
       {escolha === 'classes' ? <Classes classes={classes} /> : ''}
-      {escolha === 'matriculas' ? <Matriculas matriculas={matriculas} /> : ''}
+      {escolha === 'matriculas' ? (
+        <Matriculas
+          handleAddMatriculaModal={handleAddMatriculaModal}
+          matriculas={matriculas}
+        />
+      ) : (
+        ''
+      )}
     </main>
   );
 }

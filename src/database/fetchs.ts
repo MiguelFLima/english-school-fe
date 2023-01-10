@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import { http } from '../http';
+import { Matricula } from '../types/Matricula';
 import { Nivel } from '../types/NivelType';
 import { NewStudentInfo, Student } from '../types/StudentType';
 
@@ -100,6 +101,17 @@ export const deleteAClass = async (id: Number) => {
 };
 
 // ====== MATRICULA =======
+
+export const PostAMatricula = async (matriculaInfo: Matricula) => {
+  try {
+    await http.post(`pessoas/${matriculaInfo.estudante_id}/matriculas`, {
+      status: matriculaInfo.status,
+      turma_id: matriculaInfo.turma_id,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const deleteAMatricula = async (
   matricula_id: Number,

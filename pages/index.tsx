@@ -14,6 +14,7 @@ import NewStudentModal from '../src/components/Modais/Colaborador/ModalAdicionar
 import EditStudentModal from '../src/components/Modais/Colaborador/ModalEditarColaborador';
 import { Student } from '../src/types/StudentType';
 import AddNivelModal from '../src/components/Modais/Nivel/ModalAdicionarNivel';
+import NewMatriculaModal from '../src/components/Modais/Matricula/ModalCreateMatricula';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -85,6 +86,14 @@ export default function Home() {
     setAddNivelModal(false);
   };
 
+  // ====== MATRICULAS ======
+
+  const [isModalAddMatriculaOpen, setModalAddMAtriculaOpen] = useState(false);
+
+  const handleAddMatriculaModal = () => {
+    setModalAddMAtriculaOpen(!isModalAddMatriculaOpen);
+  };
+
   return (
     <>
       <Head>
@@ -102,6 +111,7 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            handleAddMatriculaModal={handleAddMatriculaModal}
             handleOpenNewNivelModal={handleOpenNewNivelModal}
             handleOpenEditModal={handleOpenEditModal}
             handleCloseEditModal={handleCloseEditModal}
@@ -136,6 +146,12 @@ export default function Home() {
       <AddNivelModal
         handleCloseNewNivelModal={handleCloseNewNivelModal}
         addNivelModal={addNivelModal}
+      />
+      <NewMatriculaModal
+        estudantes={estudantes}
+        classes={classes}
+        handleAddMatriculaModal={handleAddMatriculaModal}
+        isModalAddMatriculaOpen={isModalAddMatriculaOpen}
       />
     </>
   );
