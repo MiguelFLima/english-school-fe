@@ -25,7 +25,7 @@ const Matriculas = ({
           onClick={handleAddMatriculaModal}
           className="  font-medium text-lg"
         >
-          Criar uma matrícula
+          Criar uma Matrícula
         </button>
         <AiFillPlusCircle
           onClick={handleAddMatriculaModal}

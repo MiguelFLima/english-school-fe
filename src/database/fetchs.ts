@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import { http } from '../http';
+import { Class } from '../types/Class';
 import { Matricula } from '../types/Matricula';
 import { Nivel } from '../types/NivelType';
 import { NewStudentInfo, Student } from '../types/StudentType';
@@ -95,6 +96,18 @@ export const deleteAClass = async (id: Number) => {
   try {
     await http.delete(`turmas/${id}`);
     notifyDeleted();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addToTurmas = async (turma: Class) => {
+  try {
+    await http.post('turmas', {
+      data_inicio: turma.data_inicio,
+      nivel_id: turma.nivel_id,
+      docente_id: turma.docente_id,
+    });
   } catch (error) {
     console.log(error);
   }

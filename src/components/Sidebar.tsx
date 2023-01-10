@@ -34,7 +34,7 @@ function Sidebar({ setEscolha }: SidebarProps) {
         <div className="sidebarDiv">
           <SiGoogleclassroom size="24px" />
           <li onClick={() => setEscolha('classes')} className="sidebarItem">
-            Classes
+            Turmas
           </li>
         </div>
 

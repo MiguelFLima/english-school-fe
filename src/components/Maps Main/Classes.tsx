@@ -1,4 +1,5 @@
 import React from 'react';
+import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdDeleteForever } from 'react-icons/md';
 import { deleteAClass } from '../../database/fetchs';
 import { Class } from '../../types/Class';
@@ -7,12 +8,27 @@ import TituloMain from '../TituloMain';
 
 interface ClassesProps {
   classes: Class[] | undefined;
+  handleOpenCloseAddTurmaModal: () => void;
 }
 
-const Classes = ({ classes }: ClassesProps) => {
+const Classes = ({ classes, handleOpenCloseAddTurmaModal }: ClassesProps) => {
   return (
     <>
-      <TituloMain text="Tabela Classes" />
+      <TituloMain text="Tabela de Turmas" />
+      <div className="w-[100%] mb-7 gap-2 flex items-center justify-end">
+        <button
+          // onClick={handleAddMatriculaModal}
+          className="  font-medium text-lg"
+        >
+          Criar uma Turma
+        </button>
+        <AiFillPlusCircle
+          onClick={handleOpenCloseAddTurmaModal}
+          className="cursor-pointer"
+          // onClick={handleOpenModal}
+          size={'30px'}
+        />
+      </div>
 
       <table className="w-full mx-auto text-center shadow-xl">
         <thead>
@@ -38,13 +54,20 @@ const Classes = ({ classes }: ClassesProps) => {
                   <td>{turma.docente_id}</td>
                   <td>{turma.nivel_id}</td>
                   <td>{turma.data_inicio}</td>
-                  <td>{getBeutyDate(turma.createdAt)}</td>
-                  <td>{getBeutyDate(turma.updatedAt)}</td>
-                  <td>{turma.deletedAt}</td>
+                  <td>{getBeutyDate(turma.createdAt!)}</td>
+                  <td>{getBeutyDate(turma.updatedAt!)}</td>
+                  <td>
+                    <button
+                      // onClick={() => handleOpenEditModal(student)}
+                      className="px-2  bg-yellow-400 rounded-md transition duration-200 hover:bg-yellow-600"
+                    >
+                      Editar
+                    </button>
+                  </td>
                   <td className="flex justify-center items-center h-full">
                     <MdDeleteForever
                       className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
-                      onClick={() => deleteAClass(turma.id)}
+                      onClick={() => deleteAClass(turma.id!)}
                       size="32px"
                       color="red"
                     />

@@ -19,6 +19,7 @@ interface MainProps {
   handleOpenEditModal: (student: Student) => void;
   handleCloseEditModal: () => void;
   handleAddMatriculaModal: () => void;
+  handleOpenCloseAddTurmaModal: () => void;
 }
 
 function Main({
@@ -30,7 +31,7 @@ function Main({
   escolha,
   handleOpenModal,
   handleOpenEditModal,
-  handleCloseEditModal,
+  handleOpenCloseAddTurmaModal,
   handleAddMatriculaModal,
 }: MainProps) {
   return (
@@ -52,7 +53,14 @@ function Main({
       ) : (
         ''
       )}
-      {escolha === 'classes' ? <Classes classes={classes} /> : ''}
+      {escolha === 'classes' ? (
+        <Classes
+          handleOpenCloseAddTurmaModal={handleOpenCloseAddTurmaModal}
+          classes={classes}
+        />
+      ) : (
+        ''
+      )}
       {escolha === 'matriculas' ? (
         <Matriculas
           handleAddMatriculaModal={handleAddMatriculaModal}

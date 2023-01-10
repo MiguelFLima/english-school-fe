@@ -15,6 +15,7 @@ import EditStudentModal from '../src/components/Modais/Colaborador/ModalEditarCo
 import { Student } from '../src/types/StudentType';
 import AddNivelModal from '../src/components/Modais/Nivel/ModalAdicionarNivel';
 import NewMatriculaModal from '../src/components/Modais/Matricula/ModalCreateMatricula';
+import AddTurmaModal from '../src/components/Modais/Turma/ModalCriarTurma';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -45,7 +46,7 @@ export default function Home() {
     return getAllMatriculas();
   });
 
-  // ====== MODAL =======
+  // ====== COLABORADORES MODAL =======
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -56,8 +57,7 @@ export default function Home() {
     setIsOpen(false);
   };
 
-  // ====== EDIÇÃO MODAL =====
-
+  // EDICAO COLABORADOR MODAL
   const [editModal, setEditModal] = useState(false);
   const handleOpenEditModal = (student: Student) => {
     setEditModal(true);
@@ -76,7 +76,7 @@ export default function Home() {
     setEditModal(false);
   };
 
-  // ======== ADD NIVEL MODAL ========
+  // ========  NIVEL  ========
   const [addNivelModal, setAddNivelModal] = useState(false);
 
   const handleOpenNewNivelModal = () => {
@@ -84,6 +84,14 @@ export default function Home() {
   };
   const handleCloseNewNivelModal = () => {
     setAddNivelModal(false);
+  };
+
+  // ====== TURMAS ======
+
+  const [isAddTurmaModalOpen, setIsAddTurmaModalOpen] = useState(false);
+
+  const handleOpenCloseAddTurmaModal = () => {
+    setIsAddTurmaModalOpen(!isAddTurmaModalOpen);
   };
 
   // ====== MATRICULAS ======
@@ -111,6 +119,7 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            handleOpenCloseAddTurmaModal={handleOpenCloseAddTurmaModal}
             handleAddMatriculaModal={handleAddMatriculaModal}
             handleOpenNewNivelModal={handleOpenNewNivelModal}
             handleOpenEditModal={handleOpenEditModal}
@@ -152,6 +161,12 @@ export default function Home() {
         classes={classes}
         handleAddMatriculaModal={handleAddMatriculaModal}
         isModalAddMatriculaOpen={isModalAddMatriculaOpen}
+      />
+      <AddTurmaModal
+        isAddTurmaModalOpen={isAddTurmaModalOpen}
+        handleOpenCloseAddTurmaModal={handleOpenCloseAddTurmaModal}
+        niveis={niveis}
+        estudantes={estudantes}
       />
     </>
   );

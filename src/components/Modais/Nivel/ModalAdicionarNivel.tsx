@@ -36,7 +36,7 @@ const AddNivelModal = ({
   };
 
   const notify = () =>
-    toast('Atualizado ✅!', {
+    toast('Criado com Sucesso ✅!', {
       position: 'top-right',
       autoClose: 2000,
       hideProgressBar: true,
@@ -49,6 +49,8 @@ const AddNivelModal = ({
   const handleAddNivel = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addToNiveis(nomeNivel);
+    handleCloseNewNivelModal();
+    notify();
   };
 
   return (
