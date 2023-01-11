@@ -7,7 +7,7 @@ import { Student } from '../../../types/StudentType';
 import { Class } from '../../../types/Class';
 import { addEditedTurma } from '../../../database/fetchs';
 
-interface EditNivelProps {
+interface EditTurmaProps {
   handleCloseEditTurmaModal: () => void;
   modalEditTurma: boolean;
   niveis: Nivel[] | undefined;
@@ -21,7 +21,7 @@ const EditTurmaModal = ({
   estudantes,
   niveis,
   turmaToEdit,
-}: EditNivelProps) => {
+}: EditTurmaProps) => {
   const customStyles = {
     content: {
       top: '50%',

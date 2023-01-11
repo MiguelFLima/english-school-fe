@@ -147,6 +147,19 @@ export const PostAMatricula = async (matriculaInfo: Matricula) => {
   }
 };
 
+export const addEditedMatricula = async (matricula: Matricula) => {
+  try {
+    await http.put(
+      `pessoas/${matricula.estudante_id}/matriculas/${matricula.id}`,
+      {
+        status: matricula.status,
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const deleteAMatricula = async (
   matricula_id: Number,
   estudante_id: Number

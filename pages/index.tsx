@@ -20,6 +20,8 @@ import EditNivelModal from '../src/components/Modais/Nivel/ModalEditNivel';
 import { Nivel } from '../src/types/NivelType';
 import { Class } from '../src/types/Class';
 import EditTurmaModal from '../src/components/Modais/Turma/ModalEditTurma';
+import { Matricula } from '../src/types/Matricula';
+import EditMatriculaModal from '../src/components/Modais/Matricula/ModalEditMatricula';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -41,6 +43,11 @@ export default function Home() {
     id: 0,
     nivel_id: 0,
     docente_id: 0,
+  });
+  const [matriculaToEdit, setMatriculaToEdit] = useState<Matricula>({
+    id: 0,
+    estudante_id: 0,
+    status: '',
   });
 
   // ======== FETCHS =========
@@ -141,6 +148,21 @@ export default function Home() {
     setModalAddMAtriculaOpen(!isModalAddMatriculaOpen);
   };
 
+  const [modalEditMatricula, setmodalEditMatricula] = useState(false);
+
+  const handleOpenEditMatriculaModal = (matricula: Matricula) => {
+    setmodalEditMatricula(true);
+    setMatriculaToEdit({
+      id: matricula.id,
+      estudante_id: matricula.estudante_id,
+      status: matricula.status,
+    });
+  };
+
+  const handleCloseEditMatriculaModal = () => {
+    setmodalEditMatricula(false);
+  };
+
   return (
     <>
       <Head>
@@ -158,6 +180,7 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            handleOpenEditMatriculaModal={handleOpenEditMatriculaModal}
             handleOpenEditTurmaModal={handleOpenEditTurmaModal}
             handleOpenNivelEditModal={handleOpenNivelEditModal}
             handleOpenCloseAddTurmaModal={handleOpenCloseAddTurmaModal}
@@ -226,6 +249,15 @@ export default function Home() {
           niveis={niveis}
           modalEditTurma={modalEditTurma}
           handleCloseEditTurmaModal={handleCloseEditTurmaModal}
+        />
+      ) : (
+        ''
+      )}
+      {modalEditMatricula ? (
+        <EditMatriculaModal
+          matriculaToEdit={matriculaToEdit}
+          handleCloseEditMatriculaModal={handleCloseEditMatriculaModal}
+          modalEditMatricula={modalEditMatricula}
         />
       ) : (
         ''

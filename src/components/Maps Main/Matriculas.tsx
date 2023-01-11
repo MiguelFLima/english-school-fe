@@ -2,20 +2,20 @@ import React from 'react';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdDeleteForever } from 'react-icons/md';
 import { deleteAMatricula } from '../../database/fetchs';
-import { Class } from '../../types/Class';
 import { Matricula } from '../../types/Matricula';
-import { Student } from '../../types/StudentType';
 import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
 
 interface MatriculaProps {
   matriculas: Matricula[];
   handleAddMatriculaModal: () => void;
+  handleOpenEditMatriculaModal: (matricula: Matricula) => void;
 }
 
 const Matriculas = ({
   matriculas,
   handleAddMatriculaModal,
+  handleOpenEditMatriculaModal,
 }: MatriculaProps) => {
   return (
     <>
@@ -63,7 +63,7 @@ const Matriculas = ({
                   <td>{getBeutyDate(matricula.updatedAt!)}</td>
                   <td>
                     <button
-                      // onClick={() => handleOpenEditModal(student)}
+                      onClick={() => handleOpenEditMatriculaModal(matricula)}
                       className="px-2  bg-yellow-400 rounded-md transition duration-200 hover:bg-yellow-600"
                     >
                       Editar
@@ -73,7 +73,7 @@ const Matriculas = ({
                     <MdDeleteForever
                       className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
                       onClick={() =>
-                        deleteAMatricula(matricula.id!, matricula.estudante_id)
+                        deleteAMatricula(matricula.id!, matricula.estudante_id!)
                       }
                       size="32px"
                       color="red"
