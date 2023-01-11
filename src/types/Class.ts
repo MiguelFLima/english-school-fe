@@ -1,5 +1,5 @@
 export interface Class {
-  id?: 1;
+  id?: number;
   data_inicio?: string;
   createdAt?: string;
   updatedAt?: string;

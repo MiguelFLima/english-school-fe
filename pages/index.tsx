@@ -18,6 +18,8 @@ import NewMatriculaModal from '../src/components/Modais/Matricula/ModalCreateMat
 import AddTurmaModal from '../src/components/Modais/Turma/ModalCriarTurma';
 import EditNivelModal from '../src/components/Modais/Nivel/ModalEditNivel';
 import { Nivel } from '../src/types/NivelType';
+import { Class } from '../src/types/Class';
+import EditTurmaModal from '../src/components/Modais/Turma/ModalEditTurma';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -35,7 +37,11 @@ export default function Home() {
     id: 0,
     descr_nivel: '',
   });
-  // console.log('nivelToEdit', nivelToEdit);
+  const [turmaToEdit, setTurmaToEdit] = useState<Class>({
+    id: 0,
+    nivel_id: 0,
+    docente_id: 0,
+  });
 
   // ======== FETCHS =========
 
@@ -112,6 +118,21 @@ export default function Home() {
     setIsAddTurmaModalOpen(!isAddTurmaModalOpen);
   };
 
+  const [modalEditTurma, setModalEditTurma] = useState(false);
+
+  const handleOpenEditTurmaModal = (turma: Class) => {
+    setModalEditTurma(true);
+    setTurmaToEdit({
+      id: turma.id,
+      docente_id: turma.docente_id,
+      nivel_id: turma.nivel_id,
+    });
+  };
+
+  const handleCloseEditTurmaModal = () => {
+    setModalEditTurma(false);
+  };
+
   // ====== MATRICULAS ======
 
   const [isModalAddMatriculaOpen, setModalAddMAtriculaOpen] = useState(false);
@@ -137,6 +158,7 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            handleOpenEditTurmaModal={handleOpenEditTurmaModal}
             handleOpenNivelEditModal={handleOpenNivelEditModal}
             handleOpenCloseAddTurmaModal={handleOpenCloseAddTurmaModal}
             handleAddMatriculaModal={handleAddMatriculaModal}
@@ -193,6 +215,17 @@ export default function Home() {
           handleCloseEditNivelModal={handleCloseEditNivelModal}
           handleOpenNivelEditModal={handleOpenNivelEditModal}
           nivelEditModal={nivelEditModal}
+        />
+      ) : (
+        ''
+      )}
+      {modalEditTurma ? (
+        <EditTurmaModal
+          turmaToEdit={turmaToEdit}
+          estudantes={estudantes}
+          niveis={niveis}
+          modalEditTurma={modalEditTurma}
+          handleCloseEditTurmaModal={handleCloseEditTurmaModal}
         />
       ) : (
         ''

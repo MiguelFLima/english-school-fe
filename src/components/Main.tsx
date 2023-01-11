@@ -21,6 +21,7 @@ interface MainProps {
   handleAddMatriculaModal: () => void;
   handleOpenCloseAddTurmaModal: () => void;
   handleOpenNivelEditModal: (nivel: Nivel) => void;
+  handleOpenEditTurmaModal: (turma: Class) => void;
 }
 
 function Main({
@@ -35,6 +36,7 @@ function Main({
   handleOpenCloseAddTurmaModal,
   handleAddMatriculaModal,
   handleOpenNivelEditModal,
+  handleOpenEditTurmaModal,
 }: MainProps) {
   return (
     <main className=" w-[100%] h-[100%] p-10">
@@ -58,6 +60,7 @@ function Main({
       )}
       {escolha === 'classes' ? (
         <Classes
+          handleOpenEditTurmaModal={handleOpenEditTurmaModal}
           handleOpenCloseAddTurmaModal={handleOpenCloseAddTurmaModal}
           classes={classes}
         />

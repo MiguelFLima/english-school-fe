@@ -9,9 +9,14 @@ import TituloMain from '../TituloMain';
 interface ClassesProps {
   classes: Class[] | undefined;
   handleOpenCloseAddTurmaModal: () => void;
+  handleOpenEditTurmaModal: (turma: Class) => void;
 }
 
-const Classes = ({ classes, handleOpenCloseAddTurmaModal }: ClassesProps) => {
+const Classes = ({
+  classes,
+  handleOpenCloseAddTurmaModal,
+  handleOpenEditTurmaModal,
+}: ClassesProps) => {
   return (
     <>
       <TituloMain text="Tabela de Turmas" />
@@ -58,7 +63,7 @@ const Classes = ({ classes, handleOpenCloseAddTurmaModal }: ClassesProps) => {
                   <td>{getBeutyDate(turma.updatedAt!)}</td>
                   <td>
                     <button
-                      // onClick={() => handleOpenEditModal(student)}
+                      onClick={() => handleOpenEditTurmaModal(turma)}
                       className="px-2  bg-yellow-400 rounded-md transition duration-200 hover:bg-yellow-600"
                     >
                       Editar

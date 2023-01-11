@@ -102,15 +102,6 @@ export const deleteALevel = async (id: Number) => {
 
 // ===== CLASSES ========
 
-export const deleteAClass = async (id: Number) => {
-  try {
-    await http.delete(`turmas/${id}`);
-    notifyDeleted();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const addToTurmas = async (turma: Class) => {
   try {
     await http.post('turmas', {
@@ -118,6 +109,26 @@ export const addToTurmas = async (turma: Class) => {
       nivel_id: turma.nivel_id,
       docente_id: turma.docente_id,
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addEditedTurma = async (turma: Class) => {
+  try {
+    await http.put(`turmas/${turma.id}`, {
+      docente_id: turma.docente_id,
+      nivel_id: turma.nivel_id,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteAClass = async (id: Number) => {
+  try {
+    await http.delete(`turmas/${id}`);
+    notifyDeleted();
   } catch (error) {
     console.log(error);
   }
