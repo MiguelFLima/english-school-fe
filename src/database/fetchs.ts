@@ -81,6 +81,16 @@ export const addToNiveis = async (nivel: Nivel) => {
   });
 };
 
+export const addEditedNivel = async (nivelInfo: Nivel) => {
+  try {
+    await http.put(`niveis/${nivelInfo.id}`, {
+      descr_nivel: nivelInfo.descr_nivel,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const deleteALevel = async (id: Number) => {
   try {
     await http.delete(`niveis/${id}`);

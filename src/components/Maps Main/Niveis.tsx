@@ -9,9 +9,14 @@ import TituloMain from '../TituloMain';
 interface NiveisProps {
   niveis: Nivel[] | undefined;
   handleOpenNewNivelModal: () => void;
+  handleOpenNivelEditModal: (nivel: Nivel) => void;
 }
 
-const Niveis = ({ niveis, handleOpenNewNivelModal }: NiveisProps) => {
+const Niveis = ({
+  niveis,
+  handleOpenNewNivelModal,
+  handleOpenNivelEditModal,
+}: NiveisProps) => {
   return (
     <>
       <TituloMain text="Tabela Níveis" />
@@ -47,7 +52,10 @@ const Niveis = ({ niveis, handleOpenNewNivelModal }: NiveisProps) => {
                   <td>{nivel.createdAt && getBeutyDate(nivel.createdAt)}</td>
                   <td>{nivel.updatedAt && getBeutyDate(nivel.updatedAt)}</td>
                   <td>
-                    <button className="px-2  bg-yellow-400 rounded-md transition duration-200 hover:bg-yellow-600">
+                    <button
+                      onClick={() => handleOpenNivelEditModal(nivel)}
+                      className="px-2  bg-yellow-400 rounded-md transition duration-200 hover:bg-yellow-600"
+                    >
                       Editar
                     </button>
                   </td>

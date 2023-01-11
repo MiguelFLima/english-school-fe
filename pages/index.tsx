@@ -16,6 +16,8 @@ import { Student } from '../src/types/StudentType';
 import AddNivelModal from '../src/components/Modais/Nivel/ModalAdicionarNivel';
 import NewMatriculaModal from '../src/components/Modais/Matricula/ModalCreateMatricula';
 import AddTurmaModal from '../src/components/Modais/Turma/ModalCriarTurma';
+import EditNivelModal from '../src/components/Modais/Nivel/ModalEditNivel';
+import { Nivel } from '../src/types/NivelType';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -29,7 +31,11 @@ export default function Home() {
     updatedAt: '',
     deletedAt: '',
   });
-  console.log('studentToEdit', studentToEdit);
+  const [nivelToEdit, setNivelToEdit] = useState<Nivel>({
+    id: 0,
+    descr_nivel: '',
+  });
+  // console.log('nivelToEdit', nivelToEdit);
 
   // ======== FETCHS =========
 
@@ -86,6 +92,18 @@ export default function Home() {
     setAddNivelModal(false);
   };
 
+  const [nivelEditModal, setNivelEditModal] = useState(false);
+  const handleCloseEditNivelModal = () => {
+    setNivelEditModal(false);
+  };
+  const handleOpenNivelEditModal = (nivel: Nivel) => {
+    setNivelEditModal(true);
+    setNivelToEdit({
+      id: nivel.id,
+      descr_nivel: nivel.descr_nivel,
+    });
+  };
+
   // ====== TURMAS ======
 
   const [isAddTurmaModalOpen, setIsAddTurmaModalOpen] = useState(false);
@@ -119,6 +137,7 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            handleOpenNivelEditModal={handleOpenNivelEditModal}
             handleOpenCloseAddTurmaModal={handleOpenCloseAddTurmaModal}
             handleAddMatriculaModal={handleAddMatriculaModal}
             handleOpenNewNivelModal={handleOpenNewNivelModal}
@@ -168,6 +187,16 @@ export default function Home() {
         niveis={niveis}
         estudantes={estudantes}
       />
+      {nivelEditModal ? (
+        <EditNivelModal
+          nivelToEdit={nivelToEdit}
+          handleCloseEditNivelModal={handleCloseEditNivelModal}
+          handleOpenNivelEditModal={handleOpenNivelEditModal}
+          nivelEditModal={nivelEditModal}
+        />
+      ) : (
+        ''
+      )}
     </>
   );
 }

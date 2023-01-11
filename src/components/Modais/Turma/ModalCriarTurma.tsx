@@ -35,7 +35,6 @@ const AddTurmaModal = ({
     nivel_id: 0,
     docente_id: 0,
   });
-  console.log('turma', turma);
 
   const handleChangeNewNivel = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name } = e.target;
