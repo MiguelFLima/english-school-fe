@@ -83,7 +83,7 @@ export default function Home() {
     setStudentToEdit({
       id: student.id,
       nome: student.nome,
-      ativo: student.ativo,
+      ativo: Boolean(student.ativo),
       email: student.email,
       role: student.role,
       createdAt: '',
