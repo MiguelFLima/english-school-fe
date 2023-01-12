@@ -75,7 +75,7 @@ const NewStudentModal = ({
   };
 
   return (
-    <div>
+    <div className="animate-[fadeIn_0.8s]">
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={handleCloseModal}

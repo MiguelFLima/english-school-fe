@@ -18,7 +18,7 @@ const StudentMap = ({
   handleOpenEditModal,
 }: StudentProps) => {
   return (
-    <>
+    <div className="animate-[fadeIn_0.8s]">
       <TituloMain text="Tabela Pessoas" />
       <div className="w-[100%] mb-7 gap-2 flex items-center justify-end">
         <button className="  font-medium text-lg">
@@ -30,7 +30,7 @@ const StudentMap = ({
           size={'30px'}
         />
       </div>
-      <table className="w-full mx-auto text-center shadow-xl">
+      <table className="w-full mx-auto text-center shadow-xl ">
         <thead>
           <tr>
             <th>Id</th>
@@ -83,7 +83,7 @@ const StudentMap = ({
             : ''}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

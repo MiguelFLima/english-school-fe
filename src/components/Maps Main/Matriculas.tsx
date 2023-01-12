@@ -18,7 +18,7 @@ const Matriculas = ({
   handleOpenEditMatriculaModal,
 }: MatriculaProps) => {
   return (
-    <>
+    <div className="animate-[fadeIn_0.8s]">
       <TituloMain text="Tabela de Matrículas" />
       <div className="w-[100%] mb-7 gap-2 flex items-center justify-end">
         <button
@@ -84,7 +84,7 @@ const Matriculas = ({
             : ''}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

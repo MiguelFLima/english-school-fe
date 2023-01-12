@@ -18,7 +18,7 @@ const Niveis = ({
   handleOpenNivelEditModal,
 }: NiveisProps) => {
   return (
-    <>
+    <div className="animate-[fadeIn_0.8s]">
       <TituloMain text="Tabela Níveis" />
       <div className="w-[100%] mb-7 gap-2 flex items-center justify-end">
         <button className="  font-medium text-lg">Adicionar um Nível</button>
@@ -72,7 +72,7 @@ const Niveis = ({
             : ''}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

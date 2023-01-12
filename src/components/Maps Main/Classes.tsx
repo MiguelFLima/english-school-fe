@@ -18,7 +18,7 @@ const Classes = ({
   handleOpenEditTurmaModal,
 }: ClassesProps) => {
   return (
-    <>
+    <div className="animate-[fadeIn_0.8s]">
       <TituloMain text="Tabela de Turmas" />
       <div className="w-[100%] mb-7 gap-2 flex items-center justify-end">
         <button
@@ -82,7 +82,7 @@ const Classes = ({
             : ''}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
