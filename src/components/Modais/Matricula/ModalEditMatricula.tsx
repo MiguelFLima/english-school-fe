@@ -71,7 +71,7 @@ const EditMatriculaModal = ({
         >
           <form
             onSubmit={handleAddEditedNivel}
-            className="flex flex-col p-6 text-left"
+            className="flex flex-col p-6 text-left animate-[fadeIn_0.8s]"
           >
             <h1 className="font-bold text-3xl p-4 mb-4">
               Informações sobre a Turma
