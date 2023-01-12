@@ -1,7 +1,7 @@
 export interface Student {
   id: number;
   nome: string;
-  ativo: boolean;
+  ativo: boolean | string;
   email: string;
   role: string;
   createdAt?: string;

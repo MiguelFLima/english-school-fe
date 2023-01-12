@@ -43,7 +43,7 @@ export const addEditColaborator = async (student: Student) => {
   try {
     await http.put(`pessoas/${student.id}`, {
       nome: student.nome,
-      ativo: Boolean(student.ativo === true ? 1 : 0),
+      ativo: Number(student.ativo) === 0 ? false : true,
       email: String(student.email),
       role: String(student.role),
     });
