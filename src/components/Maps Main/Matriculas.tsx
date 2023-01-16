@@ -3,20 +3,26 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import { MdDeleteForever } from 'react-icons/md';
 import { deleteAMatricula } from '../../database/fetchs';
 import { Matricula } from '../../types/Matricula';
+import { Student } from '../../types/StudentType';
 import { getBeutyDate } from '../../utils/functions';
 import TituloMain from '../TituloMain';
 
 interface MatriculaProps {
   matriculas: Matricula[];
+  estudantes: Student[];
   handleAddMatriculaModal: () => void;
   handleOpenEditMatriculaModal: (matricula: Matricula) => void;
 }
-
 const Matriculas = ({
   matriculas,
+  estudantes,
   handleAddMatriculaModal,
   handleOpenEditMatriculaModal,
 }: MatriculaProps) => {
+  function estudanteDaVez(id: number) {
+    const estudantess = estudantes;
+    return estudantess.filter((student: Student) => student.id === id)[0].nome;
+  }
   return (
     <div className="animate-[fadeIn_0.8s]">
       <TituloMain text="Tabela de Matrículas" />
@@ -30,7 +36,6 @@ const Matriculas = ({
         <AiFillPlusCircle
           onClick={handleAddMatriculaModal}
           className="cursor-pointer"
-          // onClick={handleOpenModal}
           size={'30px'}
         />
       </div>

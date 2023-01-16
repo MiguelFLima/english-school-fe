@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Header from '../src/components/Header';
 import Main from '../src/components/Main';
 import Sidebar from '../src/components/Sidebar';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getAllLevels,
   getAllStudents,
@@ -12,7 +12,7 @@ import {
 import { useState } from 'react';
 import NewStudentModal from '../src/components/Modais/Colaborador/ModalAdicionarColaborador';
 import EditStudentModal from '../src/components/Modais/Colaborador/ModalEditarColaborador';
-import { Student } from '../src/types/StudentType';
+import { NewStudentInfo, Student } from '../src/types/StudentType';
 import AddNivelModal from '../src/components/Modais/Nivel/ModalAdicionarNivel';
 import NewMatriculaModal from '../src/components/Modais/Matricula/ModalCreateMatricula';
 import AddTurmaModal from '../src/components/Modais/Turma/ModalCriarTurma';
@@ -22,6 +22,7 @@ import { Class } from '../src/types/Class';
 import EditTurmaModal from '../src/components/Modais/Turma/ModalEditTurma';
 import { Matricula } from '../src/types/Matricula';
 import EditMatriculaModal from '../src/components/Modais/Matricula/ModalEditMatricula';
+import { http } from '../src/http';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -50,20 +51,43 @@ export default function Home() {
     status: '',
   });
 
-  // ======== FETCHS =========
+  const queryClient = useQueryClient();
 
-  const { data: estudantes } = useQuery(['todasPessoas'], () =>
-    getAllStudents()
+  // ===================== FETCHS =========================
+
+  // ======== COLABORADORES ==============
+
+  const { data: estudantes } = useQuery(
+    ['todasPessoas'],
+    () => getAllStudents(),
+    { refetchOnWindowFocus: false }
   );
-  const { data: niveis } = useQuery(['niveis'], () => {
-    return getAllLevels();
-  });
-  const { data: classes } = useQuery(['classes'], () => {
-    return getAllClasses();
-  });
-  const { data: matriculas } = useQuery(['matriculas'], () => {
-    return getAllMatriculas();
-  });
+
+  const { mutate: createColaborator } = useMutation(
+    async (student: NewStudentInfo) => {
+      return await http
+        .post('pessoas', {
+          nome: String(student.nome),
+          ativo: Boolean(student.ativo === 0 ? false : true),
+          email: String(student.email),
+          role: String(student.role),
+        })
+        .then((response) => {
+          queryClient.invalidateQueries(['todasPessoas']);
+        });
+    }
+  );
+
+  // ========== NIVEIS ==============
+
+  const { data: niveis } = useQuery(['niveis'], () => getAllLevels());
+
+  const { data: classes } = useQuery(['classes'], () => getAllClasses());
+  const { data: matriculas } = useQuery(['matriculas'], () =>
+    getAllMatriculas()
+  );
+
+  // =============== MODAIS ==============
 
   // ====== COLABORADORES MODAL =======
 
@@ -95,7 +119,7 @@ export default function Home() {
     setEditModal(false);
   };
 
-  // ========  NIVEL  ========
+  // ========  NIVEL MODAL  ========
   const [addNivelModal, setAddNivelModal] = useState(false);
 
   const handleOpenNewNivelModal = () => {
@@ -117,7 +141,7 @@ export default function Home() {
     });
   };
 
-  // ====== TURMAS ======
+  // ============== TURMAS MODAL ===========
 
   const [isAddTurmaModalOpen, setIsAddTurmaModalOpen] = useState(false);
 
@@ -140,7 +164,7 @@ export default function Home() {
     setModalEditTurma(false);
   };
 
-  // ====== MATRICULAS ======
+  // =========== MATRICULAS MODAL ===========
 
   const [isModalAddMatriculaOpen, setModalAddMAtriculaOpen] = useState(false);
 
@@ -190,7 +214,7 @@ export default function Home() {
             handleCloseEditModal={handleCloseEditModal}
             handleOpenModal={handleOpenModal}
             escolha={escolha}
-            estudantes={estudantes}
+            estudantes={estudantes!}
             niveis={niveis}
             classes={classes}
             matriculas={matriculas}
@@ -199,6 +223,7 @@ export default function Home() {
       </main>
       {modalIsOpen ? (
         <NewStudentModal
+          createColaborator={createColaborator}
           handleOpenModal={handleOpenModal}
           modalIsOpen={modalIsOpen}
           handleCloseModal={handleCloseModal}

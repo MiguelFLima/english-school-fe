@@ -2,7 +2,6 @@ import React from 'react';
 import Modal from 'react-modal';
 import { useState } from 'react';
 import { NewStudentInfo } from '../../../types/StudentType';
-import { PostAColaborator } from '../../../database/fetchs';
 import Loading from '../../Loading';
 import { toast } from 'react-toastify';
 
@@ -10,12 +9,14 @@ interface NewStudentModalProps {
   modalIsOpen: boolean;
   handleCloseModal: () => void;
   handleOpenModal: () => void;
+  createColaborator: (student: NewStudentInfo) => void;
 }
 
 const NewStudentModal = ({
   modalIsOpen,
   handleCloseModal,
   handleOpenModal,
+  createColaborator,
 }: NewStudentModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,7 +64,7 @@ const NewStudentModal = ({
   const handleAddColaborator = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await PostAColaborator(studentInfo);
+    await createColaborator(studentInfo);
     setStudentInfo({
       nome: '',
       ativo: '',

@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { http } from '../http';
 import { Class } from '../types/Class';
@@ -7,6 +8,7 @@ import { NewStudentInfo, Student } from '../types/StudentType';
 
 export const getAllStudents = async () => {
   const students = await http<Student[]>('pessoas');
+
   return students.data;
 };
 
@@ -25,19 +27,19 @@ export const getAllMatriculas = async () => {
   return result.data;
 };
 
-export const PostAColaborator = async (student: NewStudentInfo) => {
-  try {
-    const newPersonAdded = await http.post('pessoas', {
-      nome: String(student.nome),
-      ativo: Boolean(student.ativo === 0 ? false : true),
-      email: String(student.email),
-      role: String(student.role),
-    });
-    return newPersonAdded;
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const PostAColaborator = async (student: NewStudentInfo) => {
+//   try {
+//     const newPersonAdded = await http.post('pessoas', {
+//       nome: String(student.nome),
+//       ativo: Boolean(student.ativo === 0 ? false : true),
+//       email: String(student.email),
+//       role: String(student.role),
+//     });
+//     return newPersonAdded;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const addEditColaborator = async (student: Student) => {
   try {

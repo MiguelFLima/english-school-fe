@@ -2,14 +2,14 @@ import React from 'react';
 import { Class } from '../types/Class';
 import { Matricula } from '../types/Matricula';
 import { Nivel } from '../types/NivelType';
-import { NewStudentInfo, Student } from '../types/StudentType';
+import { Student } from '../types/StudentType';
 import Classes from './Maps Main/Classes';
 import Matriculas from './Maps Main/Matriculas';
 import Niveis from './Maps Main/Niveis';
 import Students from './Maps Main/Students';
 
 interface MainProps {
-  estudantes: Student[] | undefined;
+  estudantes: Student[];
   niveis: Nivel[] | undefined;
   classes: Class[];
   matriculas: Matricula[];
@@ -71,6 +71,7 @@ function Main({
       )}
       {escolha === 'matriculas' ? (
         <Matriculas
+          estudantes={estudantes}
           handleOpenEditMatriculaModal={handleOpenEditMatriculaModal}
           handleAddMatriculaModal={handleAddMatriculaModal}
           matriculas={matriculas}
