@@ -1,7 +1,7 @@
 export interface Student {
   id: number;
   nome: string;
-  ativo: boolean | string;
+  ativo: boolean | number | string;
   email: string;
   role: string;
   createdAt?: string;
@@ -10,8 +10,9 @@ export interface Student {
 }
 
 export interface NewStudentInfo {
+  id?: number;
   nome: string;
-  ativo: number | string;
+  ativo: number;
   email: string;
   role: string;
 }

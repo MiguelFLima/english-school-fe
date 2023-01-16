@@ -3,7 +3,6 @@ import { Student } from '../../types/StudentType';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import TituloMain from '../TituloMain';
 import { MdDeleteForever } from 'react-icons/md';
-import { deleteAColaborator } from '../../database/fetchs';
 import { getBeutyDate } from '../../utils/functions';
 
 interface StudentProps {

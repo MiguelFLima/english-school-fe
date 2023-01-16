@@ -23,7 +23,8 @@ import EditTurmaModal from '../src/components/Modais/Turma/ModalEditTurma';
 import { Matricula } from '../src/types/Matricula';
 import EditMatriculaModal from '../src/components/Modais/Matricula/ModalEditMatricula';
 import { http } from '../src/http';
-import { notifyDeleted } from '../src/database/fetchs';
+import { notifyDeleted } from '../src/utils/Notifies/Deleted';
+import { notifyUpdate } from '../src/utils/Notifies/Update';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -69,7 +70,7 @@ export default function Home() {
       return await http
         .post('pessoas', {
           nome: String(student.nome),
-          ativo: Boolean(student.ativo === 0 ? false : true),
+          ativo: Number(student.ativo === 0 ? false : true),
           email: String(student.email),
           role: String(student.role),
         })
@@ -84,6 +85,20 @@ export default function Home() {
       notifyDeleted();
       queryClient.invalidateQueries(['todasPessoas']);
     });
+  });
+
+  const { mutate: editColaborator } = useMutation(async (student: Student) => {
+    return await http
+      .put(`pessoas/${student.id}`, {
+        nome: String(student.nome),
+        ativo: student.ativo === 1 ? true : false,
+        email: String(student.email),
+        role: String(student.role),
+      })
+      .then((response) => {
+        notifyUpdate();
+        queryClient.invalidateQueries(['todasPessoas']);
+      });
   });
 
   // ========== NIVEIS ==============
@@ -242,6 +257,7 @@ export default function Home() {
       )}
       {editModal ? (
         <EditStudentModal
+          editColaborator={editColaborator}
           studentToEdit={studentToEdit}
           handleOpenEditModal={handleOpenEditModal}
           editModal={editModal}

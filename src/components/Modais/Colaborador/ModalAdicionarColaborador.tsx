@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { NewStudentInfo } from '../../../types/StudentType';
 import Loading from '../../Loading';
 import { toast } from 'react-toastify';
+import { notifyAdd } from '../../../utils/Notifies/Add';
 
 interface NewStudentModalProps {
   modalIsOpen: boolean;
@@ -50,17 +51,6 @@ const NewStudentModal = ({
     setStudentInfo({ ...studentInfo, [name]: value });
   };
 
-  const notify = () =>
-    toast('Adicionado ✅!', {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: 'light',
-    });
-
   const handleAddColaborator = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -72,7 +62,7 @@ const NewStudentModal = ({
       role: '',
     });
     handleCloseModal();
-    notify(); // NAO ESTA FUNCIONANDO
+    notifyAdd();
   };
 
   return (

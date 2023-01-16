@@ -5,6 +5,7 @@ import { Class } from '../types/Class';
 import { Matricula } from '../types/Matricula';
 import { Nivel } from '../types/NivelType';
 import { NewStudentInfo, Student } from '../types/StudentType';
+import { notifyDeleted } from '../utils/Notifies/Deleted';
 
 export const getAllStudents = async () => {
   const students = await http<Student[]>('pessoas');
@@ -41,29 +42,18 @@ export const getAllMatriculas = async () => {
 //   }
 // };
 
-export const addEditColaborator = async (student: Student) => {
-  try {
-    await http.put(`pessoas/${student.id}`, {
-      nome: student.nome,
-      ativo: Number(student.ativo) === 0 ? false : true,
-      email: String(student.email),
-      role: String(student.role),
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const notifyDeleted = () =>
-  toast('Deletado ✅!', {
-    position: 'top-right',
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    theme: 'light',
-  });
+// export const addEditColaborator = async (student: Student) => {
+//   try {
+//     await http.put(`pessoas/${student.id}`, {
+//       nome: student.nome,
+//       ativo: student.ativo === 0 ? false : true,
+//       email: String(student.email),
+//       role: String(student.role),
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const deleteAColaborator = async (id: Number) => {
   try {

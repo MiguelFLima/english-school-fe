@@ -1,20 +1,21 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useState } from 'react';
-import { Student } from '../../../types/StudentType';
-import { addEditColaborator } from '../../../database/fetchs';
-import { toast } from 'react-toastify';
+import { NewStudentInfo, Student } from '../../../types/StudentType';
+import { notifyUpdate } from '../../../utils/Notifies/Update';
 
 interface EditStudentModalProps {
   editModal: boolean;
   handleCloseEditModal: () => void;
   handleOpenEditModal: (student: Student) => void;
   studentToEdit: Student;
+  editColaborator: (student: Student) => void;
 }
 
 const EditStudentModal = ({
   editModal,
   studentToEdit,
+  editColaborator,
   handleCloseEditModal,
 }: EditStudentModalProps) => {
   const customStyles = {
@@ -32,7 +33,7 @@ const EditStudentModal = ({
   const [studentInfo, setStudentInfo] = useState<Student>({
     id: studentToEdit.id,
     nome: studentToEdit.nome,
-    ativo: studentToEdit.ativo,
+    ativo: studentToEdit.ativo === true ? 1 : 0,
     email: studentToEdit.email,
     role: studentToEdit.role,
   });
@@ -48,21 +49,9 @@ const EditStudentModal = ({
     setStudentInfo({ ...studentInfo, [name]: value });
   };
 
-  const notify = () =>
-    toast('Atualizado ✅!', {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: 'light',
-    });
-
-  const handleEditColaborator = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEditColaborator = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await addEditColaborator(studentInfo);
-    notify();
+    editColaborator(studentInfo);
     handleCloseEditModal();
   };
 
@@ -90,7 +79,9 @@ const EditStudentModal = ({
             type="text"
           />
           <select
-            value={studentInfo.ativo === true ? 1 : 0}
+            value={
+              studentInfo.ativo === 1 ? 1 : studentInfo.ativo === '1' ? 1 : 0
+            }
             onChange={handleChangeStudent}
             name="ativo"
             className="outline-none p-2 pl-[5px] mb-1 text-gray-600 border-b border-gray-400 rounded-md"
@@ -98,8 +89,8 @@ const EditStudentModal = ({
             <option defaultChecked={true} value="">
               Ativo?
             </option>
-            <option value={1}>Sim</option>
-            <option value={0}>Não</option>
+            <option value={Number(1)}>Sim</option>
+            <option value={Number(0)}>Não</option>
           </select>
           <input
             value={studentInfo.email}
