@@ -23,6 +23,7 @@ interface MainProps {
   handleOpenNivelEditModal: (nivel: Nivel) => void;
   handleOpenEditTurmaModal: (turma: Class) => void;
   handleOpenEditMatriculaModal: (matricula: Matricula) => void;
+  deleteColaborator: () => void;
 }
 
 function Main({
@@ -30,6 +31,7 @@ function Main({
   niveis,
   matriculas,
   classes,
+  deleteColaborator,
   handleOpenNewNivelModal,
   escolha,
   handleOpenModal,
@@ -47,6 +49,7 @@ function Main({
           handleOpenEditModal={handleOpenEditModal}
           handleOpenModal={handleOpenModal}
           estudantes={estudantes}
+          deleteColaborator={deleteColaborator}
         />
       ) : (
         ''

@@ -54,11 +54,11 @@ export const addEditColaborator = async (student: Student) => {
   }
 };
 
-const notifyDeleted = () =>
+export const notifyDeleted = () =>
   toast('Deletado ✅!', {
     position: 'top-right',
     autoClose: 2000,
-    hideProgressBar: true,
+    hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,

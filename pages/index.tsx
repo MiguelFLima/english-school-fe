@@ -23,6 +23,7 @@ import EditTurmaModal from '../src/components/Modais/Turma/ModalEditTurma';
 import { Matricula } from '../src/types/Matricula';
 import EditMatriculaModal from '../src/components/Modais/Matricula/ModalEditMatricula';
 import { http } from '../src/http';
+import { notifyDeleted } from '../src/database/fetchs';
 
 export default function Home() {
   const [escolha, setEscolha] = useState('');
@@ -77,6 +78,13 @@ export default function Home() {
         });
     }
   );
+
+  const { mutate: deleteColaborator } = useMutation(async (id) => {
+    return await http.delete(`pessoas/${id}`).then((response) => {
+      notifyDeleted();
+      queryClient.invalidateQueries(['todasPessoas']);
+    });
+  });
 
   // ========== NIVEIS ==============
 
@@ -204,6 +212,7 @@ export default function Home() {
         <div className="flex h-[100%] ">
           <Sidebar setEscolha={setEscolha} />
           <Main
+            deleteColaborator={deleteColaborator}
             handleOpenEditMatriculaModal={handleOpenEditMatriculaModal}
             handleOpenEditTurmaModal={handleOpenEditTurmaModal}
             handleOpenNivelEditModal={handleOpenNivelEditModal}

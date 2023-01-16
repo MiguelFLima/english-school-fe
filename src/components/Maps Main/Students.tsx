@@ -10,12 +10,14 @@ interface StudentProps {
   estudantes: Student[] | undefined;
   handleOpenModal: () => void;
   handleOpenEditModal: (student: Student) => void;
+  deleteColaborator: (id: number) => void;
 }
 
 const StudentMap = ({
   estudantes,
   handleOpenModal,
   handleOpenEditModal,
+  deleteColaborator,
 }: StudentProps) => {
   return (
     <div className="animate-[fadeIn_0.8s]">
@@ -73,7 +75,7 @@ const StudentMap = ({
                   <td className="flex justify-center items-center h-full">
                     <MdDeleteForever
                       className="cursor-pointer text-center hover:bg-red-700 transition duration-300 "
-                      onClick={() => deleteAColaborator(student.id)}
+                      onClick={() => deleteColaborator(student.id)}
                       size="32px"
                       color="red"
                     />
